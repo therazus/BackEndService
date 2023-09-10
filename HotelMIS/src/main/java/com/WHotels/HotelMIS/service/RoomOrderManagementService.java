@@ -54,7 +54,7 @@ public class RoomOrderManagementService {
         try{
             RoomAvailabilitySearchResponse roomAvailabilitySearchResponse = new RoomAvailabilitySearchResponse();
             roomAvailabilitySearchResponse.setRoomType(key.getType());
-            roomAvailabilitySearchResponse.setPrice(String.valueOf(key.getRoomPrice()));
+            roomAvailabilitySearchResponse.setPrice(Long.valueOf(key.getRoomPrice()));
             roomAvailabilitySearchResponse.setDescription(key.getDescription());
             roomAvailabilitySearchResponse.setMaxNoOfAdults(key.getMaxAdultOccupancy());
             roomAvailabilitySearchResponse.setMaxNoOfChildren(key.getMaxChildOccupancy());

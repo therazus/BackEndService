@@ -14,6 +14,6 @@ public class RoomAvailabilitySearchResponse {
     private Integer maxNoOfAdults;
     private Integer maxNoOfChildren;
     private String description;
-    private String price;
+    private Long price;
     private Integer count;
 }
