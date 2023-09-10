@@ -1,6 +1,6 @@
-package com.WHotels.HotelMIS.controller;
+package com.WHotels.HotelMIS.controller.resturant;
 
-import com.WHotels.HotelMIS.model.Order;
+import com.WHotels.HotelMIS.model.resturant.Order;
 import com.WHotels.HotelMIS.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

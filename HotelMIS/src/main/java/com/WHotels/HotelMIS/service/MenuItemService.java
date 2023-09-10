@@ -1,8 +1,7 @@
 package com.WHotels.HotelMIS.service;
 
-import com.WHotels.HotelMIS.model.Menuitem;
-import com.WHotels.HotelMIS.model.Table;
-import com.WHotels.HotelMIS.repository.MenuItemRepository;
+import com.WHotels.HotelMIS.model.resturant.MenuItem;
+import com.WHotels.HotelMIS.repository.resturant.MenuItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +16,12 @@ public class MenuItemService {
         this.menuItemRepository = menuItemRepository;
     }
 
-    public List<Menuitem> getMenuItems(){
+    public List<MenuItem> getMenuItems(){
         return menuItemRepository.findByOrderByIdAsc();
     }
 
-    public List<Menuitem> getInStockMenuItems(){
-        return menuItemRepository.findInStockMenuItems();
+    public List<MenuItem> getInStockMenuItems(){
+//        return menuItemRepository.findInStockMenuItems();
+        return null;
     }
 }

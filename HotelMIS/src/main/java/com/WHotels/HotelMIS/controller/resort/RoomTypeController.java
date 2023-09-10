@@ -1,11 +1,10 @@
-package com.WHotels.HotelMIS.controller;
+package com.WHotels.HotelMIS.controller.resort;
 
-import com.WHotels.HotelMIS.model.RoomType;
+import com.WHotels.HotelMIS.model.resort.RoomType;
 import com.WHotels.HotelMIS.service.RoomTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;

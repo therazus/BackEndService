@@ -1,7 +1,7 @@
 package com.WHotels.HotelMIS.service;
 
-import com.WHotels.HotelMIS.model.Order;
-import com.WHotels.HotelMIS.repository.OrderRepository;
+import com.WHotels.HotelMIS.model.resturant.Order;
+import com.WHotels.HotelMIS.repository.resturant.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

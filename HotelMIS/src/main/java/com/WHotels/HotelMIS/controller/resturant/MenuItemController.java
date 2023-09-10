@@ -1,8 +1,7 @@
-package com.WHotels.HotelMIS.controller;
+package com.WHotels.HotelMIS.controller.resturant;
 
 
-import com.WHotels.HotelMIS.model.Menuitem;
-import com.WHotels.HotelMIS.model.Table;
+import com.WHotels.HotelMIS.model.resturant.MenuItem;
 import com.WHotels.HotelMIS.service.MenuItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,11 +22,11 @@ public class MenuItemController {
     }
 
     @GetMapping
-    public List<Menuitem> getMenuItems(){
+    public List<MenuItem> getMenuItems(){
         return menuItemService.getMenuItems();
     }
     @GetMapping(path="/instock")
-    public List<Menuitem> getInStockMenuItems(){
+    public List<MenuItem> getInStockMenuItems(){
         return menuItemService.getInStockMenuItems();
     }
 }

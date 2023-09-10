@@ -1,10 +1,16 @@
-package com.WHotels.HotelMIS.model;
+package com.WHotels.HotelMIS.model.resturant;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@ToString
 public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -17,38 +23,6 @@ public class Order {
     @Basic
     @Column(name = "order_status")
     private String orderStatus;
-
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
-    public Integer getTableId() {
-        return tableId;
-    }
-
-    public void setTableId(Integer tableId) {
-        this.tableId = tableId;
-    }
-
-//    public Integer getWaiterId() {
-//        return waiterId;
-//    }
-
-    // public void setWaiterId(Integer waiterId) {
-          //this.waiterId = waiterId;
-     // }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
 
     @Override
     public boolean equals(Object o) {
