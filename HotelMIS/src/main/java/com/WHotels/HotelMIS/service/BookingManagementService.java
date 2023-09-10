@@ -1,9 +1,6 @@
 package com.WHotels.HotelMIS.service;
 
-import com.WHotels.HotelMIS.dto.resort.BookingRequest;
-import com.WHotels.HotelMIS.dto.resort.BookingResponse;
-import com.WHotels.HotelMIS.dto.resort.ConfirmedRequest;
-import com.WHotels.HotelMIS.dto.resort.DeleteSelectionRequest;
+import com.WHotels.HotelMIS.dto.resort.*;
 import com.WHotels.HotelMIS.model.common.Customer;
 import com.WHotels.HotelMIS.model.resort.Booking;
 import com.WHotels.HotelMIS.model.resort.Room;
@@ -50,6 +47,7 @@ public class BookingManagementService {
             booking.setBookingStatus("In Progress");
             booking.setCheckIn(Date.valueOf(bookingRequest.getCheckIn()));
             booking.setCheckOut(Date.valueOf(bookingRequest.getCheckOut()));
+            booking.setTotal(bookingRequest.getPrice());
             booking.setCustomer(null);
             booking.setRoom(room);
             return booking;
@@ -69,12 +67,37 @@ public class BookingManagementService {
 
 
 
-    public String confirmBooking(ConfirmedRequest confirmedRequest)throws Exception {
+    public ConfirmedResponse confirmBooking(ConfirmedRequest confirmedRequest)throws Exception {
         try{
-            bookingRepository.confirmBooking(confirmedRequest.getBookingIdList());
-            return "Booking Complete Successfully!";
+            Customer customer = customerRepository.save(customerMapping(confirmedRequest));
+            List<Booking> bookingList = bookingRepository.findAllById(confirmedRequest.getBookingIdList());
+            for(Booking booking : bookingList){
+                booking.setCustomer(customer);
+                booking.setBookingStatus("Confirmed");
+                bookingRepository.save(booking);
+            }
+
+            Long totalSum = bookingRepository.findTotalSum(customer.getCustomerId());
+            ConfirmedResponse confirmedResponse = new ConfirmedResponse();
+            confirmedResponse.setTotalAmount(totalSum);
+            confirmedResponse.setCustomerId(customer.getCustomerId());
+            return confirmedResponse;
         }catch (Exception ex){
             throw new Exception("Try Again");
+        }
+    }
+
+    private Customer customerMapping(ConfirmedRequest confirmedRequest) throws Exception {
+        try{
+            Customer customer = new Customer();
+            customer.setFirstName(confirmedRequest.getFirstName());
+            customer.setLastName(confirmedRequest.getLastName());
+            customer.setPhoneNo(confirmedRequest.getPhoneNo());
+            customer.setNicNumber(confirmedRequest.getNicNo());
+            customer.setDateOfBirth(confirmedRequest.getDateOfBirth());
+            return customer;
+        }catch (Exception ex){
+            throw new Exception("Exception In Service Layer!");
         }
     }
 }

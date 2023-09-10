@@ -34,10 +34,8 @@ public class RoomType {
     private String description;
 
     @Column(name = "room_price", nullable = false)
-    private Integer roomPrice;
+    private Long roomPrice;
 
-    @Column
-    private Integer numberOfRooms;
 
 }
 

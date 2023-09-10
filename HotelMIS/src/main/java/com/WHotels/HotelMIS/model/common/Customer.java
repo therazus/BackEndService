@@ -15,10 +15,11 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Integer customerId;
-
-    @Column(name = "name")
-    private String name;
     private String nicNumber;
+    private String firstName;
+    private String lastName;
+    private String dateOfBirth;
+    private String phoneNo;
 
 }
 

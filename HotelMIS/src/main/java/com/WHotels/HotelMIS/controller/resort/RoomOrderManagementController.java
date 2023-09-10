@@ -44,8 +44,8 @@ public class RoomOrderManagementController {
     }
 
     @PostMapping("/confirm-booking")
-    ResponseEntity<String> confirmBooking(@RequestBody ConfirmedRequest confirmedRequest) throws Exception{
-        String response = bookingManagementService.confirmBooking(confirmedRequest);
+    ResponseEntity<ConfirmedResponse> confirmBooking(@RequestBody ConfirmedRequest confirmedRequest) throws Exception{
+        ConfirmedResponse response = bookingManagementService.confirmBooking(confirmedRequest);
         return ResponseEntity.ok(response);
     }
 

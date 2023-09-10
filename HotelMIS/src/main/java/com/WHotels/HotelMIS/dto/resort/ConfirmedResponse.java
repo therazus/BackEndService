@@ -9,4 +9,6 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ConfirmedResponse {
+    private Long totalAmount;
+    private Integer customerId;
 }

@@ -35,13 +35,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Long> searchAvailability(String checkIn, String checkOut, int childrenCount, int adultCount);
 
 
-    @Transactional
-    @Modifying
-    @Query(nativeQuery = true, value = "update\n" +
-            "\tbooking\n" +
-            "set\n" +
-            "\tbooking_status = 'Confirmed'\n" +
-            "where\n" +
-            "\tbooking_id in :bookingIdList")
-    void confirmBooking(List<Long> bookingIdList);
+    @Query(nativeQuery = true, value = "select sum(b.total) from booking b where customer_id =:customerId and booking_status = 'Confirmed'")
+    Long findTotalSum(Integer customerId);
 }

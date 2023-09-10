@@ -28,7 +28,7 @@ public class Booking {
     private Date checkOut;
 
     @Column
-    private BigDecimal total;
+    private Long total;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
