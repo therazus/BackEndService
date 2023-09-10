@@ -12,9 +12,5 @@ import java.util.List;
 @ToString
 public class ConfirmedRequest {
     private List<Long> bookingIdList;
-    private String firstName;
-    private String lastName;
-    private String nicNo;
-    private String phoneNo;
-    private String dateOfBirth;
+    private Long customerId;
 }

@@ -69,35 +69,18 @@ public class BookingManagementService {
 
     public ConfirmedResponse confirmBooking(ConfirmedRequest confirmedRequest)throws Exception {
         try{
-            Customer customer = customerRepository.save(customerMapping(confirmedRequest));
+            Optional<Customer> customerOptional = customerRepository.findById(confirmedRequest.getCustomerId());
+            if(customerOptional.isEmpty())throw new Exception("Customer Not Found");
             List<Booking> bookingList = bookingRepository.findAllById(confirmedRequest.getBookingIdList());
             for(Booking booking : bookingList){
-                booking.setCustomer(customer);
+                booking.setCustomer(customerOptional.get());
                 booking.setBookingStatus("Confirmed");
                 bookingRepository.save(booking);
             }
-
-            Long totalSum = bookingRepository.findTotalSum(customer.getCustomerId());
-            ConfirmedResponse confirmedResponse = new ConfirmedResponse();
-            confirmedResponse.setTotalAmount(totalSum);
-            confirmedResponse.setCustomerId(customer.getCustomerId());
-            return confirmedResponse;
+            return ConfirmedResponse.builder().customerId(customerOptional.get().getCustomerId()).build();
         }catch (Exception ex){
             throw new Exception("Try Again");
         }
     }
 
-    private Customer customerMapping(ConfirmedRequest confirmedRequest) throws Exception {
-        try{
-            Customer customer = new Customer();
-            customer.setFirstName(confirmedRequest.getFirstName());
-            customer.setLastName(confirmedRequest.getLastName());
-            customer.setPhoneNo(confirmedRequest.getPhoneNo());
-            customer.setNicNumber(confirmedRequest.getNicNo());
-            customer.setDateOfBirth(confirmedRequest.getDateOfBirth());
-            return customer;
-        }catch (Exception ex){
-            throw new Exception("Exception In Service Layer!");
-        }
-    }
 }

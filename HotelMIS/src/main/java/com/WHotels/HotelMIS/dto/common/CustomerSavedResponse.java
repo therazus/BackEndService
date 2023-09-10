@@ -1,4 +1,4 @@
-package com.WHotels.HotelMIS.dto.resort;
+package com.WHotels.HotelMIS.dto.common;
 
 
 import lombok.Builder;
@@ -10,6 +10,6 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class ConfirmedResponse {
+public class CustomerSavedResponse {
     private Integer customerId;
 }
