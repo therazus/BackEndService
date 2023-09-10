@@ -2,6 +2,8 @@ package com.WHotels.HotelMIS.service;
 
 import com.WHotels.HotelMIS.dto.resort.BookingRequest;
 import com.WHotels.HotelMIS.dto.resort.BookingResponse;
+import com.WHotels.HotelMIS.dto.resort.ConfirmedRequest;
+import com.WHotels.HotelMIS.dto.resort.DeleteSelectionRequest;
 import com.WHotels.HotelMIS.model.common.Customer;
 import com.WHotels.HotelMIS.model.resort.Booking;
 import com.WHotels.HotelMIS.model.resort.Room;
@@ -74,5 +76,24 @@ public class BookingManagementService {
             throw new Exception("Customer Not Found");
         }
 
+    }
+
+    public String deleteSelection(DeleteSelectionRequest deleteSelectionRequest) throws Exception{
+        try{
+            bookingRepository.deleteAllByIdInBatch(deleteSelectionRequest.getBookingIdList());
+            return "Successfully Deleted";
+        }catch (Exception ex){
+            throw new Exception("Try Again");
+        }
+    }
+
+
+    public String confirmBooking(ConfirmedRequest confirmedRequest)throws Exception {
+        try{
+            bookingRepository.confirmBooking(confirmedRequest.getBookingIdList());
+            return "Booking Complete Successfully!";
+        }catch (Exception ex){
+            throw new Exception("Try Again");
+        }
     }
 }

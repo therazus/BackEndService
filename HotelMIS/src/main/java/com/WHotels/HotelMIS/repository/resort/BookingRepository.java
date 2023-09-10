@@ -3,7 +3,9 @@ package com.WHotels.HotelMIS.repository.resort;
 import com.WHotels.HotelMIS.model.resort.Booking;
 import com.WHotels.HotelMIS.model.resort.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -31,4 +33,15 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
             "\t\trt.max_adult_occupancy >=:adultCount\n" +
             "\t\tand rt.max_child_occupancy >=:childrenCount)")
     List<Long> searchAvailability(String checkIn, String checkOut, int childrenCount, int adultCount);
+
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = "update\n" +
+            "\tbooking\n" +
+            "set\n" +
+            "\tbooking_status = 'Confirmed'\n" +
+            "where\n" +
+            "\tbooking_id in :bookingIdList")
+    void confirmBooking(List<Long> bookingIdList);
 }

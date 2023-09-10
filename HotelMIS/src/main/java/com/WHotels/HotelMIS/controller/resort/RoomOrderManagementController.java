@@ -1,9 +1,7 @@
 package com.WHotels.HotelMIS.controller.resort;
 
 
-import com.WHotels.HotelMIS.dto.resort.BookingRequest;
-import com.WHotels.HotelMIS.dto.resort.BookingResponse;
-import com.WHotels.HotelMIS.dto.resort.RoomAvailabilitySearchResponse;
+import com.WHotels.HotelMIS.dto.resort.*;
 import com.WHotels.HotelMIS.model.resort.RoomType;
 import com.WHotels.HotelMIS.service.BookingManagementService;
 import com.WHotels.HotelMIS.service.RoomOrderManagementService;
@@ -36,6 +34,18 @@ public class RoomOrderManagementController {
     @PostMapping()
     ResponseEntity<BookingResponse> doBooking(@RequestBody BookingRequest bookingRequest) throws Exception{
         BookingResponse response = bookingManagementService.doBooking(bookingRequest);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/delete-selections")
+    ResponseEntity<String> deleteSelection(@RequestBody DeleteSelectionRequest deleteSelectionRequest) throws Exception{
+        String response = bookingManagementService.deleteSelection(deleteSelectionRequest);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/confirm-booking")
+    ResponseEntity<String> confirmBooking(@RequestBody ConfirmedRequest confirmedRequest) throws Exception{
+        String response = bookingManagementService.confirmBooking(confirmedRequest);
         return ResponseEntity.ok(response);
     }
 
