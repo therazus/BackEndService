@@ -16,7 +16,7 @@ public class CustomerManagementController {
     @Autowired
     CustomerManagementService customerManagementService;
 
-    @GetMapping("/viewCustomer")
+    @GetMapping("/view-customer")
     ResponseEntity<Customer> findCustomerByNIC(@RequestParam String nicNo) throws Exception{
         Customer response = customerManagementService.findCustomerByNIC(nicNo);
         return ResponseEntity.ok(response);
