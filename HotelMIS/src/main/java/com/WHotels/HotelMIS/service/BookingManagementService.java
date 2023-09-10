@@ -30,11 +30,10 @@ public class BookingManagementService {
 
     public BookingResponse doBooking(BookingRequest bookingRequest) throws Exception{
         try{
-            Customer customer = customerMapping(bookingRequest.getCustomerNICNo());
             List<Long> roomIdList = roomRepository.selectARoom(bookingRequest.getCheckIn(), bookingRequest.getCheckOut(), bookingRequest.getRoomType());
             if(roomIdList==null || roomIdList.isEmpty()) throw new Exception("No Rooms Available for this Room Type!");
             Optional<Room> roomOptional = roomRepository.findById(roomIdList.get(0));
-            Booking booking = bookingMapping(customer, roomOptional.get(), bookingRequest);
+            Booking booking = bookingMapping(roomOptional.get(), bookingRequest);
             Booking savedBooking  = bookingRepository.save(booking);
 
             return BookingResponse.builder().bookingStatus("In Progress").bookingId(savedBooking.getBookingId()).build();
@@ -45,37 +44,18 @@ public class BookingManagementService {
         }
     }
 
-    private Booking bookingMapping(Customer customerId, Room room, BookingRequest bookingRequest) throws Exception{
+    private Booking bookingMapping(Room room, BookingRequest bookingRequest) throws Exception{
         try{
             Booking booking = new Booking();
             booking.setBookingStatus("In Progress");
             booking.setCheckIn(Date.valueOf(bookingRequest.getCheckIn()));
             booking.setCheckOut(Date.valueOf(bookingRequest.getCheckOut()));
-            booking.setCustomer(customerId);
+            booking.setCustomer(null);
             booking.setRoom(room);
             return booking;
         }catch (Exception ex){
             throw new Exception("Exception in Service Layer");
         }
-    }
-
-    private Customer customerMapping(String customerNICNo) throws Exception{
-        try{
-            Customer customer;
-            Long customerId = customerRepository.searchCustomerByNIC(customerNICNo);
-            if(customerId==null){
-                customer = new Customer();
-                customer.setNicNumber(customerNICNo);
-            }else {
-                Optional<Customer> customerOptional  = customerRepository.findById(customerId);
-                if(customerOptional.isPresent()) return customerOptional.get();
-                else throw new Exception("Customer Not Found");
-            }
-            return customer;
-        }catch (Exception ex){
-            throw new Exception("Customer Not Found");
-        }
-
     }
 
     public String deleteSelection(DeleteSelectionRequest deleteSelectionRequest) throws Exception{
@@ -86,6 +66,7 @@ public class BookingManagementService {
             throw new Exception("Try Again");
         }
     }
+
 
 
     public String confirmBooking(ConfirmedRequest confirmedRequest)throws Exception {

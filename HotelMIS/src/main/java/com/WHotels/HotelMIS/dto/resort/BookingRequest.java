@@ -12,5 +12,5 @@ public class BookingRequest {
     private String checkIn;
     private String checkOut;
     private String roomType;
-    private String customerNICNo;
+    private String price;
 }
