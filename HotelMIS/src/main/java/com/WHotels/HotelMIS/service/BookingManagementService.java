@@ -50,6 +50,7 @@ public class BookingManagementService {
             booking.setTotal(bookingRequest.getPrice());
             booking.setCustomer(null);
             booking.setRoom(room);
+            booking.setNoOfGuests(bookingRequest.getNoOfGuests());
             return booking;
         }catch (Exception ex){
             throw new Exception("Exception in Service Layer");

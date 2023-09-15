@@ -13,4 +13,5 @@ public class BookingRequest {
     private String checkOut;
     private String roomType;
     private Long price;
+    private Long noOfGuests;
 }

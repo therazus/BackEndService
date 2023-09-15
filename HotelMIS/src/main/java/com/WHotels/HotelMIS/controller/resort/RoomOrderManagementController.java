@@ -31,6 +31,7 @@ public class RoomOrderManagementController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    //common for both wep app and app create booking
     @PostMapping()
     ResponseEntity<BookingResponse> doBooking(@RequestBody BookingRequest bookingRequest) throws Exception{
         BookingResponse response = bookingManagementService.doBooking(bookingRequest);

@@ -31,4 +31,22 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             "\twhere\n" +
             "\t\trt.\"type\"=:roomType)")
     List<Long> selectARoom(String checkIn, String checkOut, String roomType);
+
+
+    @Query(nativeQuery = true, value = "select\n" +
+            "\t*\n" +
+            "from\n" +
+            "\troom r\n" +
+            "where\n" +
+            "\tr.room_id not in (\n" +
+            "\tselect\n" +
+            "\t\tb.room_id\n" +
+            "\tfrom\n" +
+            "\t\tbooking b\n" +
+            "\twhere\n" +
+            "\t\tb.check_in <= (cast (cast(:today as text) as date))\n" +
+            "\t\t\tand \n" +
+            "b.check_out >= (cast (cast(:today as text) as date))\n" +
+            "\t\t\t\tand b.booking_status = 'Confirmed')")
+    List<Room> findAvailableRooms(String today);
 }

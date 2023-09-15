@@ -40,5 +40,7 @@ public class Booking {
 
     private String bookingStatus;
 
+    private Long noOfGuests;
+
 
 }

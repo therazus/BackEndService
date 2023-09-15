@@ -15,7 +15,7 @@ public class Room {
     @Column(name = "room_id")
     private Long roomId;
 
-    private String roomStatus;
+    private String roomStatus; //occupied & vacant
 
     @ManyToOne
     @JoinColumn(name = "room_type_id", referencedColumnName = "room_type_id")

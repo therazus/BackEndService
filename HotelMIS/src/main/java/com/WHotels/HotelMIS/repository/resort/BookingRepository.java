@@ -37,4 +37,38 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query(nativeQuery = true, value = "select sum(b.total) from booking b where customer_id =:customerId and booking_status = 'Confirmed'")
     Long findTotalSum(Integer customerId);
+
+    @Query(nativeQuery = true, value = "select count(*) from booking b where b.check_in = (cast (cast(:checkIn as text) as date)) and b.booking_status='Confirmed'")
+    Long getCheckInCount(String checkIn);
+
+    @Query(nativeQuery = true, value = "select count(*) from booking b where b.check_out = (cast (cast(:checkOut as text) as date)) and b.booking_status ='Confirmed'")
+    Long getCheckOutCount(String checkOut);
+
+
+    @Query(nativeQuery = true, value = "select\n" +
+            "\tsum(b.no_of_guests)\n" +
+            "from\n" +
+            "\tbooking b\n" +
+            "where\n" +
+            "\tb.check_in <= (cast (cast(:today as text) as date))\n" +
+            "\tand \n" +
+            "b.check_out >= (cast (cast(:today as text) as date))\n" +
+            "\tand b.booking_status = 'Confirmed'")
+    Long findTotalNoOfGuests(String today);
+
+    @Query(nativeQuery = true, value = "SELECT *\n" +
+            "FROM booking b\n" +
+            "WHERE (:bookingId IS NULL OR b.booking_id = :bookingId)\n" +
+            "  AND (\n" +
+            "    :customerName IS NULL\n" +
+            "    OR b.customer_id IN (\n" +
+            "      SELECT c.customer_id\n" +
+            "      FROM customer c\n" +
+            "      WHERE (\n" +
+            "        c.first_name ILIKE '%' || :customerName || '%' \n" +
+            "        OR c.last_name ILIKE '%' || :customerName || '%'\n" +
+            "      )\n" +
+            "    )\n" +
+            "  )")
+    List<Booking> getBookingDetailsByFilters(Long bookingId, String customerName);
 }
